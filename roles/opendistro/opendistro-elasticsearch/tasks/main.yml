@@ -13,7 +13,7 @@
 
     - name: Install OpenDistro
       package:
-        name: opendistroforelasticsearch-{{ opendistro_version }}-1
+        name: opendistroforelasticsearch={{ opendistro_version }}-1
         state: present
       register: install
       tags: install
