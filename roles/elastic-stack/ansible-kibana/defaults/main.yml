@@ -21,15 +21,15 @@ wazuh_api_credentials:
   - id: "default"
     url: "https://localhost"
     port: 55000
-    username: "wazuh"
-    password: "wazuh"
+    username: "wazuh_api"
+    password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/wazuh_api_user_password', region='ca-central-1') }}"
 
 # Xpack Security
 kibana_xpack_security: false
 kibana_ssl_verification_mode: "full"
 
 elasticsearch_xpack_security_user: elastic
-elasticsearch_xpack_security_password: elastic_pass
+elasticsearch_xpack_security_password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/es_xpack_password', region='ca-central-1') }}"
 
 node_certs_destination: /etc/kibana/certs
 

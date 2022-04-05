@@ -98,13 +98,13 @@
               disable: 'no'
               node_name: 'master'
               node_type: 'master'
-              key: 'c98b62a9b6169ac5f67dae55ae4a9088'
+              key: "{{ lookup('aws_ssm', 'automation/' + client_name + '/wazuh_cluster_key', region='ca-central-1') }}"
               nodes:
                   - "{{ hostvars.manager.private_ip }}"
               hidden: 'no'
         wazuh_api_users:
-          - username: custom-user
-            password: .S3cur3Pa55w0rd*-
+          - username: wazuh_api
+            password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/wazuh_api_user_password', region='ca-central-1') }}"
         filebeat_output_elasticsearch_hosts:
                 - "{{ hostvars.es1.private_ip }}"
                 - "{{ hostvars.es2.private_ip }}"
@@ -130,7 +130,7 @@
               disable: 'no'
               node_name: 'worker_01'
               node_type: 'worker'
-              key: 'c98b62a9b6169ac5f67dae55ae4a9088'
+              key: "{{ lookup('aws_ssm', 'automation/' + client_name + '/wazuh_cluster_key', region='ca-central-1') }}"
               nodes:
                   - "{{ hostvars.manager.private_ip }}"
               hidden: 'no'
@@ -165,8 +165,8 @@
           - id: default
             url: https://{{ hostvars.manager.private_ip }}
             port: 55000
-            username: custom-user
-            password: .S3cur3Pa55w0rd*-
+            username: wazuh_api
+            password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/wazuh_api_user_password', region='ca-central-1') }}"
         instances:
           node1:
             name: node-1       # Important: must be equal to elasticsearch_node_name.

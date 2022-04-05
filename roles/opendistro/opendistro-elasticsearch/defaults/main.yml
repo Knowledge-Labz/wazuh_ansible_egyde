@@ -59,8 +59,8 @@ certs_gen_tool_version: 1.8
 certs_gen_tool_url: "https://search.maven.org/remotecontent?filepath=com/floragunn/search-guard-tlstool/{{ certs_gen_tool_version }}/search-guard-tlstool-{{ certs_gen_tool_version }}.zip"
 
 
-opendistro_admin_password: changeme
-opendistro_kibana_password: changeme
+opendistro_admin_password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/kibana_password', region='ca-central-1') }}"
+opendistro_kibana_password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/opendistro_admin_password', region='ca-central-1') }}"
 
 # Deployment settings
 generate_certs: true

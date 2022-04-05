@@ -32,7 +32,7 @@ wazuh_api_credentials:
     url: "https://localhost"
     port: 55000
     username: "wazuh"
-    password: "wazuh"
+    password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/wazuh_api_user_password', region='ca-central-1') }}"
 
 # opendistro Security
 kibana_opendistro_security: true
@@ -40,9 +40,9 @@ kibana_newsfeed_enabled: "false"
 kibana_telemetry_optin: "false"
 kibana_telemetry_enabled: "false"
 
-opendistro_admin_password: changeme
+opendistro_admin_password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/opendistro_admin_password', region='ca-central-1') }}"
 opendistro_kibana_user: kibanaserver
-opendistro_kibana_password: changeme
+opendistro_kibana_password: "{{ lookup('aws_ssm', 'automation/' + client_name + '/kibana_password', region='ca-central-1') }}"
 local_certs_path: "{{ playbook_dir }}/opendistro/certificates"
 
 # Nodejs
