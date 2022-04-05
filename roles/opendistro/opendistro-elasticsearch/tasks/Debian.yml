@@ -5,7 +5,7 @@
   apt:
     update_cache: yes
 
-- name: Debian 9 (Stretch)
+- name: Debian 10 (Buster)
   when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "10")
   block:
   
